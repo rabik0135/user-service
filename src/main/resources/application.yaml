@@ -1,0 +1,17 @@
+spring:
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_db
+    username: ivan
+    password: rootroot
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml

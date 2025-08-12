@@ -1,0 +1,56 @@
+package com.rabinchuk.userservice.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "card_info", indexes = {
+        @Index(name = "idx_card_info_number", columnList = "number"),
+        @Index(name = "idx_card_info_user_id", columnList = "user_id")
+})
+public class CardInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(name = "number", nullable = false, length = 16)
+    private String number;
+
+    @Column(name = "holder", nullable = false, length = 100)
+    private String holder;
+
+    @Column(name = "expiration_date", nullable = false)
+    private LocalDate expirationDate;
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        CardInfo cardInfo = (CardInfo) o;
+        return getId() != null && Objects.equals(getId(), cardInfo.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+}
