@@ -1,4 +1,4 @@
-package com.rabinchuk.userservice.entity;
+package com.rabinchuk.userservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
