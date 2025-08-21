@@ -10,4 +10,5 @@ public record UserResponseDto(
         LocalDate birthDate,
         String email,
         List<CardInfoResponseDto> cards
-) {}
+) {
+}

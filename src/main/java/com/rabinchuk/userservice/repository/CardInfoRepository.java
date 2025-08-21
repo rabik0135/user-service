@@ -25,5 +25,5 @@ public interface CardInfoRepository extends JpaRepository<CardInfo, Long> {
             FROM card_info c
             WHERE c.user_id = :userId
             """, nativeQuery = true)
-    List<CardInfo> findByUserId(@Param("id") Long userId);
+    List<CardInfo> findByUserId(@Param("userId") Long userId);
 }
