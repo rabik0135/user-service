@@ -1,5 +1,6 @@
 package com.rabinchuk.userservice.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,5 +11,5 @@ public record UserResponseDto(
         LocalDate birthDate,
         String email,
         List<CardInfoResponseDto> cards
-) {
+) implements Serializable {
 }

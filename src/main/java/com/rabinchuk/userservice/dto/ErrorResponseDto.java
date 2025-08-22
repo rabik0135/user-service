@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Builder
-public record ErrorResponse(
+public record ErrorResponseDto(
         String path,
         String errorMessage,
         int statusCode,

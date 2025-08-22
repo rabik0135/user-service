@@ -39,6 +39,7 @@ public class User {
     private String email;
 
     @ToString.Exclude
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CardInfo> cards = new LinkedHashSet<>();
 

@@ -8,6 +8,9 @@ import com.rabinchuk.userservice.repository.UserRepository;
 import com.rabinchuk.userservice.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "USER_CACHE", key = "#id")
     public UserResponseDto getById(Long id) {
         return userMapper.toDto(userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + id)
@@ -50,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CachePut(value = "USER_CACHE", key = "#id")
     public UserResponseDto updateById(Long id, UserRequestDto userRequestDto) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + id)
@@ -61,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "USER_CACHE", key = "#id")
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
