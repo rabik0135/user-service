@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1755022620982-1" author="ivanr (generated)">
+        <createTable tableName="card_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_card_info"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="holder" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1755022620982-2" author="ivanr (generated)">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1755022620982-3" author="ivanr (generated)">
+        <createIndex indexName="idx_card_info_number" tableName="card_info">
+            <column name="number"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1755022620982-4" author="ivanr (generated)">
+        <createIndex indexName="idx_card_info_user_id" tableName="card_info">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1755022620982-5" author="ivanr (generated)">
+        <createIndex indexName="idx_users_name_surname" tableName="users">
+            <column name="name"/>
+            <column name="surname"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1755022620982-6" author="ivanr (generated)">
+        <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
+    </changeSet>
+    <changeSet id="1755022620982-7" author="ivanr (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="card_info"
+                                 constraintName="fk_card_info_on_user" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>
