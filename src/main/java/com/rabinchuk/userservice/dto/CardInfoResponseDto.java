@@ -1,8 +1,11 @@
 package com.rabinchuk.userservice.dto;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Builder
 public record CardInfoResponseDto(
         Long id,
         Long userId,

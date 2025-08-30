@@ -1,9 +1,11 @@
 package com.rabinchuk.userservice.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
+@Builder
 public record UserRequestDto(
         @NotBlank(message = "Name is required")
         @Size(max = 50, message = "Name must not exceed 50 characters")

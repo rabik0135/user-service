@@ -43,6 +43,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CardInfo> cards = new LinkedHashSet<>();
 
+    public void addCardInfo(CardInfo cardInfo) {
+        this.cards.add(cardInfo);
+        cardInfo.setUser(this);
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

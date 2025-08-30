@@ -53,7 +53,7 @@ public class CardInfoServiceImpl implements CardInfoService {
                 () -> new EntityNotFoundException("User with id " + userId + " not found!")
         );
         CardInfo cardInfo = cardInfoMapper.toEntity(cardInfoRequestDto);
-        cardInfo.setUser(user);
+        user.addCardInfo(cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));
     }
@@ -64,7 +64,7 @@ public class CardInfoServiceImpl implements CardInfoService {
                 () -> new EntityNotFoundException("User with id " + cardInfoWithUserIdRequestDto.userId() + " not found!")
         );
         CardInfo cardInfo = cardInfoMapper.toEntity(cardInfoWithUserIdRequestDto);
-        cardInfo.setUser(user);
+        user.addCardInfo(cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));
     }
@@ -83,11 +83,19 @@ public class CardInfoServiceImpl implements CardInfoService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+        cardInfoRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Card Info with id " + id + " not found!")
+        );
+
         cardInfoRepository.deleteById(id);
     }
 
     @Override
     public List<CardInfoResponseDto> getCardInfoByUserId(Long userId) {
+        userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + userId + " not found!")
+        );
+
         return cardInfoRepository.findByUserId(userId).stream()
                 .map(cardInfoMapper::toDto)
                 .collect(Collectors.toList());

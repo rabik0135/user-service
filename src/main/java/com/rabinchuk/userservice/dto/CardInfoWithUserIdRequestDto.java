@@ -1,9 +1,11 @@
 package com.rabinchuk.userservice.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
+@Builder
 public record CardInfoWithUserIdRequestDto(
 
         @NotNull(message = "User id is required")
