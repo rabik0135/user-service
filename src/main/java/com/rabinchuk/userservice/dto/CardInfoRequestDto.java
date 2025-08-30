@@ -1,9 +1,11 @@
 package com.rabinchuk.userservice.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
+@Builder
 public record CardInfoRequestDto(
 
         @NotBlank(message = "Card number is required")
