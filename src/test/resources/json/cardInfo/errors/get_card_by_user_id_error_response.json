@@ -1,0 +1,6 @@
+{
+  "path": "/api/cards/getCardInfoByUserId/897",
+  "errorMessage": "User with id 897 not found!",
+  "statusCode": 404,
+  "errors": null
+}

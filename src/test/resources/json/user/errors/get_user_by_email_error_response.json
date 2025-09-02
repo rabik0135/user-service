@@ -1,0 +1,6 @@
+{
+  "path": "/api/users/getByEmail/john.doe@gmail.com",
+  "errorMessage": "User not found with email: john.doe@gmail.com",
+  "statusCode": 404,
+  "errors": null
+}

@@ -7,7 +7,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -28,22 +36,22 @@ public class UserController {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @GetMapping(value = "getByIds", params = "ids")
+    @GetMapping(value = "/getByIds", params = "ids")
     public ResponseEntity<List<UserResponseDto>> getByIds(@RequestParam List<Long> ids) {
         return ResponseEntity.ok(userService.getByIds(ids));
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserRequestDto u) {
         return new ResponseEntity<>(userService.create(u), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateById(@PathVariable("id") Long id, @Valid @RequestBody UserRequestDto u) {
         return ResponseEntity.ok(userService.updateById(id, u));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

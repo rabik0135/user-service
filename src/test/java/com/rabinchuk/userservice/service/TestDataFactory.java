@@ -1,6 +1,10 @@
 package com.rabinchuk.userservice.service;
 
-import com.rabinchuk.userservice.dto.*;
+import com.rabinchuk.userservice.dto.CardInfoRequestDto;
+import com.rabinchuk.userservice.dto.CardInfoResponseDto;
+import com.rabinchuk.userservice.dto.CardInfoWithUserIdRequestDto;
+import com.rabinchuk.userservice.dto.UserRequestDto;
+import com.rabinchuk.userservice.dto.UserResponseDto;
 import com.rabinchuk.userservice.model.CardInfo;
 import com.rabinchuk.userservice.model.User;
 
@@ -116,5 +120,4 @@ public class TestDataFactory {
                 .expirationDate(LocalDate.of(2030, 1, 1))
                 .build();
     }
-
 }

@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "name": "John",
+  "surname": "Doe",
+  "birthDate": "1999-09-19",
+  "email": "john.doe@gmail.com",
+  "cards": []
+}
