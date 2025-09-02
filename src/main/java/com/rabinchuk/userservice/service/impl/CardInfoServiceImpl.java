@@ -75,6 +75,9 @@ public class CardInfoServiceImpl implements CardInfoService {
         CardInfo cardInfo = cardInfoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Card Info with id " + id + " not found!")
         );
+        User user = userRepository.findById(cardInfoWithUserIdRequestDto.userId()).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + cardInfoWithUserIdRequestDto.userId() + " not found!")
+        );
         cardInfoMapper.updateCardInfoFromDto(cardInfoWithUserIdRequestDto, cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));

@@ -8,7 +8,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -34,17 +42,17 @@ public class CardInfoController {
         return ResponseEntity.ok(cardInfoService.getByIds(ids));
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<CardInfoResponseDto> create(@Valid @RequestBody CardInfoWithUserIdRequestDto u) {
         return new ResponseEntity<>(cardInfoService.create(u), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CardInfoResponseDto> updateById(@PathVariable Long id, @Valid @RequestBody CardInfoWithUserIdRequestDto u) {
         return ResponseEntity.ok(cardInfoService.updateById(id, u));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         cardInfoService.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -59,5 +67,4 @@ public class CardInfoController {
     public ResponseEntity<List<CardInfoResponseDto>> getCardInfoByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(cardInfoService.getCardInfoByUserId(userId));
     }
-
 }

@@ -1,0 +1,6 @@
+{
+  "path": "/api/cards/addCardInfoToUser/200",
+  "errorMessage": "User with id 200 not found!",
+  "statusCode": 404,
+  "errors": null
+}

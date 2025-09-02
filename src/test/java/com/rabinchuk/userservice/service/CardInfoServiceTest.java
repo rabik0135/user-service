@@ -27,10 +27,15 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CardInfoServiceTests {
+public class CardInfoServiceTest {
 
     @Mock
     private CardInfoRepository cardInfoRepository;
@@ -222,6 +227,7 @@ public class CardInfoServiceTests {
                 .build();
 
         when(cardInfoRepository.findById(cardIdToUpdate)).thenReturn(Optional.of(cardInfo1));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(cardInfoRepository.save(any(CardInfo.class))).thenReturn(cardInfo1);
         when(cardInfoMapper.toDto(cardInfo1)).thenReturn(expectedResponseDto);
 
@@ -271,7 +277,7 @@ public class CardInfoServiceTests {
         when(cardInfoRepository.findByUserId(1L)).thenReturn(cards);
         when(cardInfoMapper.toDto(cardInfo1)).thenReturn(cardInfoResponseDto1);
         when(cardInfoMapper.toDto(cardInfo2)).thenReturn(cardInfoResponseDto2);
-        List<CardInfoResponseDto> expected =  List.of(cardInfoResponseDto1, cardInfoResponseDto2);
+        List<CardInfoResponseDto> expected = List.of(cardInfoResponseDto1, cardInfoResponseDto2);
 
         List<CardInfoResponseDto> actual = cardInfoService.getCardInfoByUserId(1L);
 

@@ -16,7 +16,7 @@ spring:
     password: rootroot
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
