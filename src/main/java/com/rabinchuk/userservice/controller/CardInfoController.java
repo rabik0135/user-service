@@ -68,4 +68,5 @@ public class CardInfoController implements CardInfoApi {
     public ResponseEntity<List<CardInfoResponseDto>> getCardInfoByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(cardInfoService.getCardInfoByUserId(userId));
     }
+
 }

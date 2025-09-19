@@ -8,4 +8,5 @@ FROM bellsoft/liberica-openjre-alpine:21-cds
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
+RUN apk add --no-cache curl
 ENTRYPOINT ["java", "-jar", "app.jar"]
