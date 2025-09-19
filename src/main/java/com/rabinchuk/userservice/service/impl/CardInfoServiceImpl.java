@@ -48,6 +48,7 @@ public class CardInfoServiceImpl implements CardInfoService {
     }
 
     @Override
+    @Transactional()
     public CardInfoResponseDto addCardInfoToUser(Long userId, CardInfoRequestDto cardInfoRequestDto) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + userId + " not found!")
@@ -59,6 +60,7 @@ public class CardInfoServiceImpl implements CardInfoService {
     }
 
     @Override
+    @Transactional
     public CardInfoResponseDto create(CardInfoWithUserIdRequestDto cardInfoWithUserIdRequestDto) {
         User user = userRepository.findById(cardInfoWithUserIdRequestDto.userId()).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + cardInfoWithUserIdRequestDto.userId() + " not found!")
@@ -94,6 +96,7 @@ public class CardInfoServiceImpl implements CardInfoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CardInfoResponseDto> getCardInfoByUserId(Long userId) {
         userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + userId + " not found!")
