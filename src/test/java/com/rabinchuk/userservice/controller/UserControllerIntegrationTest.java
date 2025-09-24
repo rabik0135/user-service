@@ -316,4 +316,5 @@ public class UserControllerIntegrationTest extends AbstractIntegrationTest {
             Mockito.verify(userRepository, Mockito.times(3)).findById(userId);
         }
     }
+
 }
