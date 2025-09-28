@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -11,11 +12,10 @@ import javax.crypto.SecretKey;
 @Component
 public class JwtTokenProvider {
 
-    private final String jwtSecret = "M3BIWW9iS2kzV1dhVkNDcFpJTGxWblRaaEYwcTdIeXZaUjBXdERPOUtUSmthVmQ3REgK";
     private final SecretKey secretKey;
 
-    public JwtTokenProvider() {
-        this.secretKey = getSigningKey(this.jwtSecret);
+    public JwtTokenProvider(@Value("${JWT_SECRET}") String jwtSecret) {
+        this.secretKey = getSigningKey(jwtSecret);
     }
 
     public boolean validatetoken(String token) {
