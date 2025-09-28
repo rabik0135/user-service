@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Disabled("Disabled for CI")
 class UserServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 }
