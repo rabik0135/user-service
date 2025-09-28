@@ -1,6 +1,5 @@
 package com.rabinchuk.userservice;
 
-import com.rabinchuk.userservice.configuration.SecurityConfiguration;
 import com.rabinchuk.userservice.configuration.TestSecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,7 +11,6 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.FileCopyUtils;
 import org.testcontainers.containers.GenericContainer;

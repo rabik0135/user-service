@@ -2,6 +2,7 @@ package com.rabinchuk.userservice.configuration;
 
 import com.rabinchuk.userservice.security.CustomAccessDenierHandler;
 import com.rabinchuk.userservice.security.DelegatedAuthEntryPoint;
+import com.rabinchuk.userservice.security.InternalApiAuthenticationFilter;
 import com.rabinchuk.userservice.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final InternalApiAuthenticationFilter internalApiAuthenticationFilter;
     private final DelegatedAuthEntryPoint delegatedAuthEntryPoint;
     private final CustomAccessDenierHandler customAccessDenierHandler;
 
@@ -41,6 +43,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(internalApiAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
