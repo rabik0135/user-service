@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 
 @Component
+
 public class JwtTokenProvider {
 
     private final SecretKey secretKey;
 
-    public JwtTokenProvider(@Value("${JWT_SECRET}") String jwtSecret) {
+    public JwtTokenProvider(@Value("${app.jwt.secret}") String jwtSecret) {
         this.secretKey = getSigningKey(jwtSecret);
     }
 
