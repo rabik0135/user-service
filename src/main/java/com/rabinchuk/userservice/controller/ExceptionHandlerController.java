@@ -5,11 +5,14 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.security.SignatureException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,4 +51,48 @@ public class ExceptionHandlerController {
 
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({
+            AuthenticationException.class,
+            SignatureException.class
+    })
+    public ResponseEntity<ErrorResponseDto> handleAuthenticationException(Exception ex, HttpServletRequest request) {
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+                .path(request.getRequestURI())
+                .errorMessage("Authentication Failed: Invalid or missing token")
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler({
+            AccessDeniedException.class
+    })
+    public ResponseEntity<ErrorResponseDto> handleAAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+                .path(request.getRequestURI())
+                .errorMessage("Access Denied: You don't have enough privileges")
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler({
+            Exception.class
+    })
+    public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception ex, HttpServletRequest request) {
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+                .path(request.getRequestURI())
+                .errorMessage("An unexpected error occurred " + ex.getMessage())
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

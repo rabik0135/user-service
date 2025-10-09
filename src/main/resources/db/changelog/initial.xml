@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1755022620982-1" author="ivanr (generated)">
+    <changeSet id="1755022620982-1" author="rabinchuk">
         <createTable tableName="card_info">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_card_info"/>
@@ -24,7 +24,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1755022620982-2" author="ivanr (generated)">
+    <changeSet id="1755022620982-2" author="rabinchuk">
         <createTable tableName="users">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
@@ -43,26 +43,26 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1755022620982-3" author="ivanr (generated)">
+    <changeSet id="1755022620982-3" author="rabinchuk">
         <createIndex indexName="idx_card_info_number" tableName="card_info">
             <column name="number"/>
         </createIndex>
     </changeSet>
-    <changeSet id="1755022620982-4" author="ivanr (generated)">
+    <changeSet id="1755022620982-4" author="rabinchuk">
         <createIndex indexName="idx_card_info_user_id" tableName="card_info">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet id="1755022620982-5" author="ivanr (generated)">
+    <changeSet id="1755022620982-5" author="rabinchuk)">
         <createIndex indexName="idx_users_name_surname" tableName="users">
             <column name="name"/>
             <column name="surname"/>
         </createIndex>
     </changeSet>
-    <changeSet id="1755022620982-6" author="ivanr (generated)">
+    <changeSet id="1755022620982-6" author="rabinchuk">
         <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
     </changeSet>
-    <changeSet id="1755022620982-7" author="ivanr (generated)">
+    <changeSet id="1755022620982-7" author="rabinchuk">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="card_info"
                                  constraintName="fk_card_info_on_user" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="users"/>
