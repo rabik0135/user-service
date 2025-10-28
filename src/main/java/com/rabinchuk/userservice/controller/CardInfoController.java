@@ -36,7 +36,7 @@ public class CardInfoController implements CardInfoApi {
     }
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasRole('ADMIN') or cardInfoServiceImpl.getById(#id).userId() == @userServiceImpl.getUserByEmail(authentication.name).id()")
+    @PreAuthorize("hasRole('ADMIN') or @cardInfoServiceImpl.getById(#id).userId() == @userServiceImpl.getUserByEmail(authentication.name).id()")
     public ResponseEntity<CardInfoResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(cardInfoService.getById(id));
     }
@@ -54,13 +54,13 @@ public class CardInfoController implements CardInfoApi {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or @cardInfoServiceImpl.getById(#id).userId().equals(@userServiceImpl.getUserByEmail(authentication.name).id())")
     public ResponseEntity<CardInfoResponseDto> updateById(@PathVariable Long id, @Valid @RequestBody CardInfoWithUserIdRequestDto u) {
         return ResponseEntity.ok(cardInfoService.updateById(id, u));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or cardInfoServiceImpl.getById(#id).userId() == @userServiceImpl.getUserByEmail(authentication.name).id()")
+    @PreAuthorize("hasRole('ADMIN') or @cardInfoServiceImpl.getById(#id).userId().equals(@userServiceImpl.getUserByEmail(authentication.name).id())")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         cardInfoService.deleteById(id);
         return ResponseEntity.noContent().build();

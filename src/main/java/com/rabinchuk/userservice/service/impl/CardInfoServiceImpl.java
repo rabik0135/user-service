@@ -88,10 +88,11 @@ public class CardInfoServiceImpl implements CardInfoService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        cardInfoRepository.findById(id).orElseThrow(
+        CardInfo cardInfo = cardInfoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Card Info with id " + id + " not found!")
         );
-
+        User user = cardInfo.getUser();
+        user.getCards().remove(cardInfo);
         cardInfoRepository.deleteById(id);
     }
 

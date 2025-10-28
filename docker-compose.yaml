@@ -20,7 +20,7 @@ services:
     environment:
       JWT_SECRET: ${JWT_SECRET}
       INTERNAL_KEY: ${INTERNAL_KEY}
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-user-db:5432/user_db"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/user_db"
       SPRING_DATASOURCE_USERNAME: "${POSTGRES_USER}"
       SPRING_DATASOURCE_PASSWORD: "${POSTGRES_PASSWORD}"
       SPRING_DATA_REDIS_HOST: "redis"
