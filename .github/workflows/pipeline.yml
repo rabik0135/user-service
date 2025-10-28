@@ -52,5 +52,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${ secrets.DOCKERHUB_USERNAME }}/user-service:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/user-service:latest
       
