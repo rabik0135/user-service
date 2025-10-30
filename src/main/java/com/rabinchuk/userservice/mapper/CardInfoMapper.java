@@ -4,7 +4,11 @@ import com.rabinchuk.userservice.dto.CardInfoRequestDto;
 import com.rabinchuk.userservice.dto.CardInfoResponseDto;
 import com.rabinchuk.userservice.dto.CardInfoWithUserIdRequestDto;
 import com.rabinchuk.userservice.model.CardInfo;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring")
 public interface CardInfoMapper {

@@ -1,0 +1,9 @@
+{
+  "path": "/api/cards/addCardInfoToUser/1",
+  "errorMessage": "Validation Failed",
+  "statusCode": 400,
+  "errors": {
+    "number": "Card number must be 16 digits",
+    "expirationDate": "Expiration date must be in the future"
+  }
+}
