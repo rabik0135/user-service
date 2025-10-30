@@ -1,5 +1,6 @@
 package com.rabinchuk.userservice.controller;
 
+import com.rabinchuk.userservice.controller.api.UserApi;
 import com.rabinchuk.userservice.dto.UserRequestDto;
 import com.rabinchuk.userservice.dto.UserResponseDto;
 import com.rabinchuk.userservice.service.UserService;
@@ -14,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserService userService;
 
@@ -28,22 +29,22 @@ public class UserController {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @GetMapping(value = "getByIds", params = "ids")
+    @GetMapping(value = "/getByIds", params = "ids")
     public ResponseEntity<List<UserResponseDto>> getByIds(@RequestParam List<Long> ids) {
         return ResponseEntity.ok(userService.getByIds(ids));
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserRequestDto u) {
         return new ResponseEntity<>(userService.create(u), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateById(@PathVariable("id") Long id, @Valid @RequestBody UserRequestDto u) {
         return ResponseEntity.ok(userService.updateById(id, u));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -53,4 +54,5 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
+
 }

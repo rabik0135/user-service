@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Michael",
+    "surname": "Jordan",
+    "birthDate": "1963-02-17",
+    "email": "michael.jordan@gmail.com",
+    "cards": []
+  },
+  {
+    "id": 2,
+    "name": "Michael",
+    "surname": "Jackson",
+    "birthDate": "1958-08-29",
+    "email": "michael.jackson@gmail.com",
+    "cards": []
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "path": "/api/users",
+  "errorMessage": "Validation Failed",
+  "statusCode": 400,
+  "errors": {
+    "birthDate": "Birth date must be in the past",
+    "email": "Invalid email format"
+  }
+}
