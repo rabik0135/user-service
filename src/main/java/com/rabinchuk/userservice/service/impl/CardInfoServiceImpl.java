@@ -48,23 +48,25 @@ public class CardInfoServiceImpl implements CardInfoService {
     }
 
     @Override
+    @Transactional()
     public CardInfoResponseDto addCardInfoToUser(Long userId, CardInfoRequestDto cardInfoRequestDto) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + userId + " not found!")
         );
         CardInfo cardInfo = cardInfoMapper.toEntity(cardInfoRequestDto);
-        cardInfo.setUser(user);
+        user.addCardInfo(cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));
     }
 
     @Override
+    @Transactional
     public CardInfoResponseDto create(CardInfoWithUserIdRequestDto cardInfoWithUserIdRequestDto) {
         User user = userRepository.findById(cardInfoWithUserIdRequestDto.userId()).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + cardInfoWithUserIdRequestDto.userId() + " not found!")
         );
         CardInfo cardInfo = cardInfoMapper.toEntity(cardInfoWithUserIdRequestDto);
-        cardInfo.setUser(user);
+        user.addCardInfo(cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));
     }
@@ -75,6 +77,9 @@ public class CardInfoServiceImpl implements CardInfoService {
         CardInfo cardInfo = cardInfoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Card Info with id " + id + " not found!")
         );
+        userRepository.findById(cardInfoWithUserIdRequestDto.userId()).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + cardInfoWithUserIdRequestDto.userId() + " not found!")
+        );
         cardInfoMapper.updateCardInfoFromDto(cardInfoWithUserIdRequestDto, cardInfo);
 
         return cardInfoMapper.toDto(cardInfoRepository.save(cardInfo));
@@ -83,11 +88,21 @@ public class CardInfoServiceImpl implements CardInfoService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+        CardInfo cardInfo = cardInfoRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Card Info with id " + id + " not found!")
+        );
+        User user = cardInfo.getUser();
+        user.getCards().remove(cardInfo);
         cardInfoRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CardInfoResponseDto> getCardInfoByUserId(Long userId) {
+        userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + userId + " not found!")
+        );
+
         return cardInfoRepository.findByUserId(userId).stream()
                 .map(cardInfoMapper::toDto)
                 .collect(Collectors.toList());
